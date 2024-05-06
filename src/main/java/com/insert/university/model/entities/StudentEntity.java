@@ -22,13 +22,14 @@ public class StudentEntity {
     private String family;
     @Column(name = "nationalcode")
     private String nationalCode;
-    @Enumerated(EnumType.STRING)
-    private Course course;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "student_teacher",
-            joinColumns=@JoinColumn(name = "student_id"),
+            joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "teacher_id")
     )
     private List<TeacherEntity> teacherEntityList;
+
+  @ManyToMany(mappedBy = "studentEntityList")
+    private List<CourseEntity> courseEntityList;
 }

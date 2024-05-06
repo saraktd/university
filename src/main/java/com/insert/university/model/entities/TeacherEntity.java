@@ -22,8 +22,11 @@ public class TeacherEntity {
     private String family;
     @Column(name = "nationalcode")
     private String nationalCode;
+    @Enumerated(EnumType.STRING)
     @ManyToMany(mappedBy = "teacherEntityList")
     private List<StudentEntity> studentEntityList;
+    @ManyToMany(mappedBy = "teacherEntityList")
+    private List<CourseEntity> courseEntityList;
 
 
 }
