@@ -1,2 +1,16 @@
-package com.insert.university.common;public class PersonDto {
+package com.insert.university.common;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@MappedSuperclass
+@ToString
+public class PersonDto extends BaseDto{
+    private String name;
+    private String family;
+    private String nationalCode;
 }

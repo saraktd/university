@@ -12,16 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Table(name = "Students")
-public class StudentEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name = "name")
-    private String name;
-    @Column(name = "family")
-    private String family;
-    @Column(name = "nationalcode")
-    private String nationalCode;
+public class StudentEntity extends PersonEntity{
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "student_teacher",

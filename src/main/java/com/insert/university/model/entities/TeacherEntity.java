@@ -12,17 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Table(name = "teachers")
-public class TeacherEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name = "name")
-    private String name;
-    @Column(name = "family")
-    private String family;
-    @Column(name = "nationalcode")
-    private String nationalCode;
-    @Enumerated(EnumType.STRING)
+public class TeacherEntity extends PersonEntity{
     @ManyToMany(mappedBy = "teacherEntityList")
     private List<StudentEntity> studentEntityList;
     @ManyToMany(mappedBy = "teacherEntityList")

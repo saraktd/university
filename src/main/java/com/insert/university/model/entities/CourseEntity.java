@@ -13,18 +13,13 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 @NoArgsConstructor
+@Inheritance
 @Table(name = "course")
-public class CourseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+public class CourseEntity extends BaseEntity {
     @Column(name = "name")
     private String name;
-    @Column(name="unit")
+    @Column(name = "unit")
     private Integer unit;
-
-
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "student_course",

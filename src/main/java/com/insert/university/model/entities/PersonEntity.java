@@ -1,14 +1,16 @@
 package com.insert.university.model.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.*;
 
-public class Person {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class PersonEntity extends BaseEntity {
     @Column(name = "name")
     private String name;
     @Column(name = "family")
