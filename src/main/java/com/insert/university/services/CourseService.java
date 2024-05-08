@@ -33,5 +33,10 @@ public class CourseService extends BaseService<CourseEntity, CourseRepository> {
             repository.save(course);
             studentRepository.save(student);
         }
+
+    @Override
+    public CourseEntity insert(CourseEntity entity) {
+        return super.insert(entity);
     }
+}
 

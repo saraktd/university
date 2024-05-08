@@ -1,5 +1,8 @@
 package com.insert.university.converter;
 
+import com.insert.university.common.TeacherDto;
+import com.insert.university.model.entities.TeacherEntity;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +27,6 @@ public interface BaseConverter<E,D> {
                     .collect(Collectors.toList());
         }
         return null;
+
     }
-
-
 }

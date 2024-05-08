@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 public abstract class BaseService<E, R extends JpaRepository<E, Long>> {
-    @Autowired
+
     protected R repository;
 
     public E insert(E entity) {

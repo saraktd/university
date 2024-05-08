@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-public abstract class BaseController<E,D,S extends BaseService<E,?>>  {
-    @Autowired
-    protected BaseConverter<E,D> converter;
-    @Autowired
-    protected S service;
+@RestController
+public abstract class BaseController<E, D, S extends BaseService<E, ?>> {
 
-}
+    protected BaseConverter<E, D> converter;
+
+    protected S service;
+    }

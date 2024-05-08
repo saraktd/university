@@ -11,7 +11,7 @@ import lombok.*;
 @ToString
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class PersonEntity extends BaseEntity {
-    @Column(name = "name")
+    @Column(name = "name",nullable = false)
     private String name;
     @Column(name = "family")
     private String family;
