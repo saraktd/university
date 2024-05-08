@@ -9,6 +9,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @MappedSuperclass
+@ToString
 public class StudentDto extends PersonDto{
 
 

@@ -2,16 +2,21 @@ package com.insert.university.converter;
 
 import com.insert.university.common.TeacherDto;
 import com.insert.university.model.entities.TeacherEntity;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public interface BaseConverter<E,D> {
+public class BaseConverter<E,D> {
 
-    E convertDtoE(D d);
+     public  E convertDtoE(D d) {return null;}
 
-    D convertEtoD(E e);
-    default List<E> convertDtoE(List<D> dList) {
+
+    public  D convertEtoD(E e){return null;}
+
+
+
+     List<E> convertDtoE(List<D> dList) {
         if (dList != null) {
             return dList.stream()
                     .map(this::convertDtoE)
@@ -20,7 +25,7 @@ public interface BaseConverter<E,D> {
         return null;
     }
 
-    default List<D> convertEtoD(List<E> dList) {
+     List<D> convertEtoD(List<E> dList) {
         if (dList != null) {
             return dList.stream()
                     .map(this::convertEtoD)

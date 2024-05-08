@@ -8,8 +8,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @MappedSuperclass
+@ToString
 public class CourseDto extends BaseDto{
     private String name;
     private Integer unit;
+
+
 
 }

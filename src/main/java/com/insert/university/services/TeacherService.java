@@ -4,18 +4,17 @@ import com.insert.university.model.entities.CourseEntity;
 import com.insert.university.model.entities.TeacherEntity;
 import com.insert.university.repositories.CourseRepository;
 import com.insert.university.repositories.TeacherRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@RequiredArgsConstructor
 @Service
 public class TeacherService extends BaseService<TeacherEntity, TeacherRepository>{
 
-
-    @Autowired
-   CourseRepository courseRepository;
-
+    private final TeacherRepository teacherRepository;
+    private final CourseRepository courseRepository;
 
     public void addCourseToTeacher(Long teacherId, Long courseId) {
         TeacherEntity teacher = repository.findById(teacherId).orElseThrow(() -> new RuntimeException("Teacher not found"));
@@ -43,17 +42,24 @@ public class TeacherService extends BaseService<TeacherEntity, TeacherRepository
         newTeacherEntity.setFamily(teacherFamily);
         newTeacherEntity.setNationalCode(teacherNationalCode);
 
-        repository.save(newTeacherEntity);
+        teacherRepository.save(newTeacherEntity);
 
         return newTeacherEntity;
     }
     public void deleteAccount(Long id) {
-        if (id == null ) {
-            throw new IllegalArgumentException("Fields cannot be empty");
+        if (id == null) {
+            throw new IllegalArgumentException("ID cannot be null");
         }
-        repository.deleteById(id);
+        boolean exists = teacherRepository.existsById(id);
+        if (!exists) {
+            throw new IllegalArgumentException("Account with ID: " + id + " does not exist");
+        }
+        try {
+            teacherRepository.deleteById(id);
+            System.out.println("The desired user has been successfully deleted");
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+
     }
-
-
-
 }

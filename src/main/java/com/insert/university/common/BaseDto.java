@@ -10,6 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @MappedSuperclass
+@ToString
 public abstract class BaseDto {
     private Long id;
     private Integer version;

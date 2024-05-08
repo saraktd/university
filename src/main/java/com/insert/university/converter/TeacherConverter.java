@@ -7,8 +7,6 @@ import org.springframework.stereotype.Component;
 
 @Mapper(componentModel = "spring")
 @Component
-public interface TeacherConverter extends BaseConverter<TeacherEntity, TeacherDto> {
-
-
+public class TeacherConverter extends BaseConverter<TeacherEntity,TeacherDto>{
 
 }

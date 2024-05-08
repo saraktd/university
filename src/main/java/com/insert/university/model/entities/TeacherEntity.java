@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "teachers")
+@Table(name = "teacher")
 public class TeacherEntity extends PersonEntity{
     @ManyToMany(mappedBy = "teacherEntityList")
     private List<StudentEntity> studentEntityList;
