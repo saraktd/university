@@ -19,17 +19,17 @@ public class TeacherService extends BaseService<TeacherEntity, TeacherRepository
     public void addCourseToTeacher(Long teacherId, Long courseId) {
         TeacherEntity teacher = repository.findById(teacherId).orElseThrow(() -> new RuntimeException("Teacher not found"));
         CourseEntity course = courseRepository.findById(courseId).orElseThrow(() -> new RuntimeException("Lesson not found"));
-        teacher.getCourseEntityList().add(course);
+        teacher.getCourses().add(course);
         repository.save(teacher);
     }
 
     public void removeCourseFromTeacher(Long teacherId, Long courseId) {
         TeacherEntity teacher = repository.findById(teacherId).orElseThrow(() -> new RuntimeException("Teacher not found"));
-        CourseEntity course = teacher.getCourseEntityList().stream()
+        CourseEntity course = teacher.getCourses().stream()
                 .filter(c -> c.getId().equals(courseId))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("The course was not found in the teacher's list"));
-        teacher.getCourseEntityList().remove(course);
+        teacher.getCourses().remove(course);
         repository.save(teacher);
     }
     public TeacherEntity createAccount(String teacherName, String teacherFamily, String teacherNationalCode ) {

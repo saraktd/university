@@ -53,35 +53,32 @@ public class StudentService extends BaseService<StudentEntity, StudentRepository
 
     public void removeCourseFromStudent(Long studentID, Long courseId) {
         StudentEntity testudent = studentRepository.findById(studentID).orElseThrow(() -> new RuntimeException("Teacher not found"));
-        CourseEntity course = testudent.getCourseEntityList().stream()
+        CourseEntity course = testudent.getCourses().stream()
                 .filter(c -> c.getId().equals(courseId))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("The course was not found in the teacher's list"));
-        testudent.getCourseEntityList().remove(course);
+        testudent.getCourses().remove(course);
         studentRepository.save(testudent);
     }
+
     @Transactional
-    public void addCourseToStudent(Long studentId, Long courseId,Long tescherId) {
+    public void addCourseToStudent(Long studentId, Long courseId, Long teشcherId) {
         StudentEntity student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new RuntimeException("Student not found"));
         CourseEntity course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new RuntimeException("Course not found"));
-        TeacherEntity teacherEntity = teacherRepository.findById(tescherId)
+        TeacherEntity teacher = teacherRepository.findById(teشcherId)
                 .orElseThrow(() -> new RuntimeException("Teacher not found"));
 
 
-        student.getCourseEntityList().add(course);
-        course.getStudentEntityList().add(student);
-        course.getTeacherEntityList().add(teacherEntity);
-        teacherEntity.getCourseEntityList().add(course);
-        student.getTeacherEntityList().add(teacherEntity);
-        teacherEntity.getStudentEntityList().add(student);
+        student.getCourses().add(course);
+        course.getStudents().add(student);
+        course.setTeacher(teacher);
+        teacher.getCourses().add(course);
+        teacher.getStudents().add(student);
         studentRepository.save(student);
         courseRepository.save(course);
-        teacherRepository.save(teacherEntity);
-
-
-
+        teacherRepository.save(teacher);
 
     }
 }

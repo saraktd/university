@@ -30,7 +30,7 @@ public class StudentController extends BaseController<StudentEntity, StudentDto,
         studentService.deleteAccount(id);
     }
   @Transactional
-    @PostMapping("/{studentId}/courses/{courseId}/{teacherId}")
+    @PostMapping("/courses/{studentId}/{courseId}/{teacherId}")
     public ResponseEntity<?> addCourseToStudent(@PathVariable Long studentId, @PathVariable Long courseId,@PathVariable Long teacherId) {
         studentService.addCourseToStudent(studentId, courseId,teacherId);
         return ResponseEntity.ok().build();

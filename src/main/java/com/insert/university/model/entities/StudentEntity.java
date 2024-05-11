@@ -11,16 +11,17 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "Students")
 public class StudentEntity extends PersonEntity{
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
-            name = "student_teacher",
+            name = "student_course",
             joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "teacher_id")
+            inverseJoinColumns = @JoinColumn(name = "course_id")
     )
-    private List<TeacherEntity> teacherEntityList;
+    private List<CourseEntity> courses;
+    @ManyToMany(mappedBy = "students")
+    private List<TeacherEntity> teachers;
 
-  @ManyToMany(mappedBy = "studentEntityList")
-    private List<CourseEntity> courseEntityList;
 }
+
+

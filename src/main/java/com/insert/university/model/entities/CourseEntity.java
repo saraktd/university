@@ -4,35 +4,27 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Entity
 @Getter
-@Service
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Inheritance
-@Table(name = "course")
 public class CourseEntity extends BaseEntity {
     @Column(name = "name")
     private String name;
     @Column(name = "unit")
     private Integer unit;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "student_course",
-            joinColumns = @JoinColumn(name = "course_id"),
-            inverseJoinColumns = @JoinColumn(name = "student_id")
-    )
-    private List<StudentEntity> studentEntityList;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "student_course",
-            joinColumns = @JoinColumn(name = "course_id"),
-            inverseJoinColumns = @JoinColumn(name = "teacher_id")
-    )
-    private List<TeacherEntity> teacherEntityList;
 
+    @ManyToMany(mappedBy = "courses")
+    private List<StudentEntity> students;
+
+    @ManyToOne
+    @JoinColumn(name = "teacher_id")
+    private TeacherEntity teacher;
 }

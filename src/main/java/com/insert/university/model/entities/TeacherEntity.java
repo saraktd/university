@@ -11,12 +11,17 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "teacher")
-public class TeacherEntity extends PersonEntity{
-    @ManyToMany(mappedBy = "teacherEntityList")
-    private List<StudentEntity> studentEntityList;
-    @ManyToMany(mappedBy = "teacherEntityList")
-    private List<CourseEntity> courseEntityList;
 
+public class TeacherEntity extends PersonEntity{
+    @ManyToMany
+    @JoinTable(
+            name = "teacher_student",
+            joinColumns = @JoinColumn(name = "teacher_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id")
+    )
+    private List<StudentEntity> students;
+
+    @OneToMany(mappedBy = "teacher")
+    private List<CourseEntity> courses;
 
 }
