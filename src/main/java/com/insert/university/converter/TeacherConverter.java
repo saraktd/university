@@ -5,8 +5,11 @@ import com.insert.university.model.entities.TeacherEntity;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 @Component
 public class TeacherConverter extends BaseConverter<TeacherEntity,TeacherDto>{
+
 
 }
