@@ -19,7 +19,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/course")
+@RequestMapping("/api/course")
 public class CourseController extends BaseController<CourseEntity, CourseDto, CourseService> {
 
     private final CourseService courseService;

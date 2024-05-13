@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/teacher")
+@RequestMapping("/api/teacher")
 public class TeacherController extends BaseController<TeacherEntity, TeacherDto, TeacherService> {
 
  private final TeacherService teacherService;
