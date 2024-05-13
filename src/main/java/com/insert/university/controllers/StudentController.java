@@ -30,10 +30,20 @@ public class StudentController extends BaseController<StudentEntity, StudentDto,
         studentService.deleteAccount(id);
     }
   @Transactional
-    @PostMapping("/courses/{studentId}/{courseId}/{teacherId}")
+    @PostMapping("/addC/{studentId}/{courseId}/{teacherId}")
     public ResponseEntity<?> addCourseToStudent(@PathVariable Long studentId, @PathVariable Long courseId,@PathVariable Long teacherId) {
         studentService.addCourseToStudent(studentId, courseId,teacherId);
         return ResponseEntity.ok().build();
+    }
+    @Transactional
+    @DeleteMapping("/removeC/{studentId}/{courseId}")
+    public ResponseEntity<?> removeCourseToStudent(@PathVariable Long studentId, @PathVariable Long courseId) {
+        studentService.removeCourseFromStudent(studentId, courseId);
+        return ResponseEntity.ok().build();
+    }
+    @GetMapping("/find/{id}")
+    public StudentDto getCourseById(@PathVariable Long id) throws Exception {
+        return  studentService.getStudentById(id);
     }
 
 }

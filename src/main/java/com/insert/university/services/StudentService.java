@@ -1,5 +1,8 @@
 package com.insert.university.services;
 
+import com.insert.university.common.CourseDto;
+import com.insert.university.common.StudentDto;
+import com.insert.university.converter.StudentConverter;
 import com.insert.university.model.entities.CourseEntity;
 import com.insert.university.model.entities.StudentEntity;
 import com.insert.university.model.entities.TeacherEntity;
@@ -19,6 +22,7 @@ public class StudentService extends BaseService<StudentEntity, StudentRepository
     private final StudentRepository studentRepository;
     private final CourseRepository courseRepository;
     private final TeacherRepository teacherRepository;
+    private final StudentConverter studentConverter;
 
     public StudentEntity createAccount(String studentName, String studentFamily, String studentNationalCode) {
         if (studentName == null || studentFamily == null || studentNationalCode == null) {
@@ -81,4 +85,12 @@ public class StudentService extends BaseService<StudentEntity, StudentRepository
         teacherRepository.save(teacher);
 
     }
+    public StudentDto getStudentById(Long id) throws Exception {
+        StudentEntity student = studentRepository.findById(id)
+                .orElseThrow(() -> new Exception("Student not found with id: " + id));
+        StudentDto studentDto=new StudentDto();
+        studentDto=studentConverter.convertEtoD(student);
+        return studentDto ;
+    }
+
 }

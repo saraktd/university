@@ -1,5 +1,8 @@
 package com.insert.university.services;
 
+import com.insert.university.common.StudentDto;
+import com.insert.university.common.TeacherDto;
+import com.insert.university.converter.TeacherConverter;
 import com.insert.university.model.entities.CourseEntity;
 import com.insert.university.model.entities.TeacherEntity;
 import com.insert.university.repositories.CourseRepository;
@@ -15,22 +18,34 @@ public class TeacherService extends BaseService<TeacherEntity, TeacherRepository
 
     private final TeacherRepository teacherRepository;
     private final CourseRepository courseRepository;
+    private final TeacherConverter teacherConverter;
 
-    public void addCourseToTeacher(Long teacherId, Long courseId) {
-        TeacherEntity teacher = repository.findById(teacherId).orElseThrow(() -> new RuntimeException("Teacher not found"));
+
+    public void addCourseToTeacher(Long courseId, Long teacherId) {
+        TeacherEntity teacher = teacherRepository.findById(teacherId).orElseThrow(() -> new RuntimeException("Teacher not found"));
         CourseEntity course = courseRepository.findById(courseId).orElseThrow(() -> new RuntimeException("Lesson not found"));
         teacher.getCourses().add(course);
-        repository.save(teacher);
+        teacherRepository.save(teacher);
+        course.setTeacher(teacher);
+
     }
 
-    public void removeCourseFromTeacher(Long teacherId, Long courseId) {
-        TeacherEntity teacher = repository.findById(teacherId).orElseThrow(() -> new RuntimeException("Teacher not found"));
+    public void removeCourseFromTeacher(Long courseId, Long teacherId) {
+        TeacherEntity teacher = teacherRepository.findById(teacherId).orElseThrow(() -> new RuntimeException("Teacher not found"));
         CourseEntity course = teacher.getCourses().stream()
                 .filter(c -> c.getId().equals(courseId))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("The course was not found in the teacher's list"));
-        teacher.getCourses().remove(course);
-        repository.save(teacher);
+
+
+        if (course.getTeacher() != null && course.getTeacher().equals(teacher)) {
+            course.setTeacher(null);
+            teacher.getCourses().remove(course);
+        }
+
+        teacherRepository.save(teacher);
+        courseRepository.save(course);
+
     }
     public TeacherEntity createAccount(String teacherName, String teacherFamily, String teacherNationalCode ) {
         if (teacherName == null || teacherFamily == null|| teacherNationalCode==null) {
@@ -62,4 +77,12 @@ public class TeacherService extends BaseService<TeacherEntity, TeacherRepository
         }
 
     }
+    public TeacherDto getTeacherById(Long id) throws Exception {
+        TeacherEntity teacher = teacherRepository.findById(id)
+                .orElseThrow(() -> new Exception("Teacher not found with id: " + id));
+        TeacherDto teacherDto=new TeacherDto();
+        teacherDto=teacherConverter.convertEtoD(teacher);
+        return teacherDto ;
+    }
+
 }

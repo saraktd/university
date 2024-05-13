@@ -23,8 +23,7 @@ import java.util.Optional;
 public class CourseController extends BaseController<CourseEntity, CourseDto, CourseService> {
 
     private final CourseService courseService;
-    private final CourseConverter courseConverter;
-    private final CourseRepository courseRepository;
+
 
 
 
